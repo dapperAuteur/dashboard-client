@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Transaction</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div id="graph"></div>
+    <div id="fetching"></div>
+    <form action="" onsubmit="createTransaction()" method="post">
+      <label for="budget-select">Choose The Budget</label>
+      <select name="budgets" id="budget-select" size="3">
+        <option value="">--Please choose the budget for this tranx</option>
+        <option value="5f3e189bd95d06627dc8e931">Entertainment</option>
+        <option value="5f3e189bd95d06627dc8e932" selected>Food</option> <!-- a `selected` attribute on an <option> element to make it selected by default when the page first loads -->
+        <option value="5f3e189bd95d06627dc8e933">Maintenance</option>
+        <option value="5f3e189bd95d06627dc8e934">Phone</option>
+        <option value="5f3e189bd95d06627dc8e935">Rent</option>
+        <option value="5f3e189bd95d06627dc8e936">Selfcare</option>
+        <option value="5f3e189bd95d06627dc8e937">Tools</option>
+        <option value="5f3e189bd95d06627dc8e938">Trainsportation</option>
+        <option value="5f3e189bd95d06627dc8e939">Travel</option>
+        <option value="5f3e189bd95d06627dc8e93a">Utilities</option>
+      </select>
+      <label for="currency-select">Choose The Currency</label>
+      <select name="currencies" id="currency-select" size="3">
+        <option value="">--Please choose the currency for this tranx</option>
+        <option value="5f381f30f815d062fb9da8f1" selected>USD</option>
+        <option value="5f381f30f815d062fb9da8f2">Ethereum</option>
+        <option value="5f381f30f815d062fb9da8f3">SPANK</option>
+        <option value="5f381f30f815d062fb9da8f4">BOOTY</option>
+        <option value="5f381f30f815d062fb9da8f5">Bitcoin</option>
+      </select>
+      <label for="financial-account-select">Choose The Account</label>
+      <select name="finAccts" id="financial-account-select" size="3">
+        <option value="">--Please choose the financial account for this tranx</option>
+        <option value="5f3e16a8d95d06627dc8e928" selected>Cash</option>
+        <option value="5f3e16a8d95d06627dc8e929">Cash App/Biz</option>
+        <option value="5f3e16a8d95d06627dc8e92a">Credit Card</option>
+        <option value="5f3e16a8d95d06627dc8e92b">Credit Card Mamma</option>
+        <option value="5f3e16a8d95d06627dc8e92c">Gift Card</option>
+        <option value="5f3e16a8d95d06627dc8e92d">PayPal</option>
+        <option value="5f3e16a8d95d06627dc8e92e">PayPal Credit</option>
+        <option value="5f3e16a8d95d06627dc8e92f">Checking Personal</option>
+        <option value="5f3e16a8d95d06627dc8e930">Savings Special</option>
+        <option value="5f3e16a8d95d06627dc8e927">Checking Business</option>
+      </select>
+      <br/>
+      <label for="occurrence-string">Date of Transaction</label>
+      <input type="datetime-local" id="occurrence-string" name="occurrence" />
+      <br/>
+      <label for="transaction-event"></label>
+      <p>Transaction Event</p><textarea id="transaction-event" name="tranxEvent">Tell us about this transaction.</textarea>
+      <br/>
+      <label for="transaction-debit">Debit</label>
+      <input type="number" name="tranxDebit" id="transaction-debit" value="0"/>
+      <br/>
+      <label for="transaction-credit">Credit</label>
+      <input type="number" name="tranxCredit" id="transaction-credit" value="0"/>
+      <br/>
+      <label for="vendor-select">Vendor</label>
+      <select name="vendor" id="vendor-select">
+        <!-- list of vendors are added dynamically -->
+        <option value="">--Please choose the vendor for this tranx</option>
+      </select>
+      <label for="participant-select">Participant</label>
+      <select name="participant" id="participant-select">
+        <option value="">--Please choose the participant for this tranx</option>
+        <option value="5ab055eae67be20014ca5284" selected>awe</option>
+        <option value="other">Other</option>
+      </select>
+      <br/>
+      <br/>
+      <button type="submit">Submit</button>
+    </form>
+</body>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="./tranxMultiFetch.js"></script>
+<script>
+  let form = document.querySelector("form");
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    // console.log("submit event default stopped", form.elements);
+  });
+</script>
+</html>
