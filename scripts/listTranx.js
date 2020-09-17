@@ -26,8 +26,8 @@ let buildTransactions = () => {
                 if (tx.budget_id = budget._id) {
                     tx.budget = budget.budget_name
                     delete tx.budget_id
+                    console.log('budget', budget)
                 }
-                // console.log('budget', budget)
             })
             currenciesArr.forEach(currency => {
                 if (tx.currency_id = currency._id) {
@@ -104,9 +104,19 @@ const getBudgetData = (function() {
 })();
 getBudgetData.init()
 
-// buildTable builds the table based on the result of the buildTransactions function
-let buildTable = (table) => {
-    console.log("start buildTable");
+let generateTableHead = (table, data) => {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+        let th = document.createElement("th");
+        let text = document.createTextNode(key);
+        th.appendChild(text);
+        row.appendChild(th);
+    }
+}
+// generateTable generates the HTML for the table based on the result of the buildTransactions function
+let generateTable = (table) => {
+    console.log("start generateTable");
     console.log('table', table)
     tranx.forEach(tx => {
         // console.log('tx', tx)
@@ -122,3 +132,11 @@ let buildTable = (table) => {
         }
     });
 }
+
+// buildTable builds the table based on the result of the buildTransactions function
+let buildTable = () =>{
+    let headers = Object.keys(tranx[0]);
+    generateTableHead(table, headers);
+    generateTable(table, tranx);
+}
+
