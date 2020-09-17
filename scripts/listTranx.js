@@ -12,7 +12,11 @@ let finAcctsArr = []
 
 let tranx;
 
+let table = document.querySelector("table")
+console.log('table', table)
+
 const arrURL = [budgetURL, currencyURL, vendorURL, tranxURL, finAcctURL]
+// buildTransactions adds the names of the budget, currency, vendor, and financial account based on the _id of each object
 let buildTransactions = () => {
     console.log("start");
     if (budgetsArr.length !== 0 || currenciesArr.length !== 0 || vendorsArr.length !== 0 || tranxArr.length !== 0 || finAcctsArr.length !== 0) {
@@ -21,34 +25,38 @@ let buildTransactions = () => {
             budgetsArr.forEach(budget => {
                 if (tx.budget_id = budget._id) {
                     tx.budget = budget.budget_name
+                    delete tx.budget_id
                 }
                 // console.log('budget', budget)
             })
             currenciesArr.forEach(currency => {
                 if (tx.currency_id = currency._id) {
                     tx.currency = currency.currency
+                    delete tx.currency_id
                 }
                 // console.log('currency', currency)
             })
             vendorsArr.forEach(vendor => {
                 if (tx.vendor_id = vendor._id) {
                     tx.vendor = vendor.vendor_name
+                    delete tx.vendor_id
                 }
                 // console.log('vendor', vendor)
             })
             finAcctsArr.forEach(finAcct => {
                 if (tx.fin_acc_id = finAcct._id) {
                     tx.finAcct = finAcct.account_name
+                    delete tx.fin_acc_id
                 }
                 // console.log('finAcct', finAcct)
             })
         })
+        buildTable(table)
         console.log('tranx', tranx)
         return tranx
     }
-    console.log('tranx', tranx)
-    return tranx
 }
+// getBudgetData retrieves the data from the server
 const getBudgetData = (function() {
     const constants = {
         data: document.getElementById('fetching')
@@ -73,7 +81,7 @@ const getBudgetData = (function() {
                             // console.log('currenciesArr', currenciesArr)
                         } else if (data[0].hasOwnProperty('vendor_name')) {
                             vendorsArr = data
-                            console.log('vendorsArr', vendorsArr)
+                            // console.log('vendorsArr', vendorsArr)
                         } else if (data[0].hasOwnProperty('financial_institution')) {
                             finAcctsArr = data
                             // console.log('finAcctsArr', finAcctsArr)
@@ -95,3 +103,22 @@ const getBudgetData = (function() {
     }
 })();
 getBudgetData.init()
+
+// buildTable builds the table based on the result of the buildTransactions function
+let buildTable = (table) => {
+    console.log("start buildTable");
+    console.log('table', table)
+    tranx.forEach(tx => {
+        // console.log('tx', tx)
+        let row = table.insertRow();
+        for (key in tx) {
+            // if (object.hasOwnProperty(key)) {
+            //     const element = object[key];
+                
+            // }
+            let cell = row.insertCell();
+            let text = document.createTextNode(tx[key]);
+            cell.appendChild(text);
+        }
+    });
+}
